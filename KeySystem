@@ -1,0 +1,7 @@
+function genKey(hour, minute)
+    local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789THISPARTISFORTHESECURITYOFINDEX"
+    local chunk1 = chars:sub(hour, hour+3)
+    local chunk2 = chars:sub(minute, minute+3)
+    local code = chunk1 .. chunk2
+    return code
+end
