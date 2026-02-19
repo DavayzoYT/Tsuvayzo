@@ -1,0 +1,37 @@
+local tkFuncCounter = 0
+local tksF = {}
+function genToken()
+    tkFuncCounter += 1
+    local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$()[]{}?!+%=@&#$"
+    local pass = "T" .. tkFuncCounter .. "_"
+
+    -- Chunk 1
+    for i = 0, 4 do
+        local index = math.random(1, #chars)
+        pass = pass .. chars:sub(index, index)
+    end
+    pass = pass .. "-"
+
+    -- Chunk 2
+    for i = 0, 4 do
+        local index = math.random(1, #chars)
+        pass = pass .. chars:sub(index, index)
+    end
+    pass = pass .. "-"
+
+    -- Chunk 3
+    for i = 0, 4 do
+        local index = math.random(1, #chars)
+        pass = pass .. chars:sub(index, index)
+    end
+    pass = pass .. "-"
+
+    -- Chunk 4
+    for i = 0, 4 do
+        local index = math.random(1, #chars)
+        pass = pass .. chars:sub(index, index)
+    end
+
+    table.insert(tksF, pass)
+    return pass
+end
