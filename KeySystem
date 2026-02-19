@@ -1,0 +1,5 @@
+function genKey(hour)
+    hour = tonumber(hour)
+    local chars = "ABCDEFJKLMNOPQRSTUVWIJKLMNOPQRSTUVWXYZ0123456789"
+    return chars:sub(hour+1, hour+6)
+end
