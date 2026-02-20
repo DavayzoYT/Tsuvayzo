@@ -70,9 +70,15 @@ end)
 
 -- Nearest brainrot
 function getBrainrot(Bt1)
-    local t1 = game.Workspace.ActiveBrainrots:FindFirstChild(RARITY) or game.Workspace:FindFirstChild("ActiveLuckyBlocks")
+    local t1 = game.Workspace.ActiveBrainrots:FindFirstChild(RARITY)
+    if not t1 then
+        t1 = game.Workspace:FindFirstChild("ActiveLuckyBlocks")
+    end
     if t1 then
-        local t2 = t1:FindFirstChild("RenderedBrainrot") or t1:FindFirstChild("NaturalSpawnLuckyBlock_" .. RARITY)
+        local t2 = t1:FindFirstChild("RenderedBrainrot")
+        if not t2 then
+            t2 = t1:FindFirstChild("NaturalSpawnLuckyBlock_" .. RARITY)
+        end
         if t2 then
             local champion = nil
             local championpos = 99999999
