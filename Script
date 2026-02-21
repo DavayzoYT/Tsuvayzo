@@ -151,6 +151,7 @@ function tpBrainrot(Bt1)
     Tp(Vector3.new(brainrot.Position.X, pathY, pathZ))
     if brainrot:FindFirstChildOfClass("ProximityPrompt") then
         local pp = brainrot:FindFirstChildOfClass("ProximityPrompt")
+        pp.MaxActivationDistance = 9999
         pp.HoldDuration = 0
         Tp(brainrot.Position)
         task.wait(0.3)
@@ -283,6 +284,23 @@ submit.MouseButton1Click:Connect(function()
         -- The protected code continues here
         -- print("Key correct → executing main script")
         Bt1.Size = UDim2.new(0, 150, 0, 45)
+        -- Hitbox Expander
+game.DescendantAdded:Connect(function(d)
+    if d.Name == "HumanoidRootPart" and d ~= hrp and game.Players:FindFirstChild(d.Parent.Name) and d.Parent.Name ~= game.Players.LocalPlayer.Name then
+        d.Size = Vector3.new(20, 20, 20)
+        d.CanCollide = true
+        d.Transparency = 0.9
+        d.Color = Color3.fromRGB(255, 0, 0)
+    end
+end)
+for _, d in ipairs(game:GetDescendants()) do
+    if d.Name == "HumanoidRootPart" and d ~= hrp and game.Players:FindFirstChild(d.Parent.Name) then
+        d.Size = Vector3.new(20, 20, 20)
+        d.CanCollide = true
+        d.Transparency = 0.9
+        d.Color = Color3.fromRGB(255, 0, 0)
+    end
+end
     else
         -- Wrong key → brief red flash
         input.BackgroundColor3 = Color3.fromRGB(75, 30, 30)
