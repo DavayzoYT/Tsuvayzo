@@ -2,6 +2,7 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/DavayzoYT/Tsuvayzo/refs/heads/main/KeySystem"))()
 local keySeed = os.date("%H")
 local ScriptKey = genKey(keySeed)
+print(ScriptKey)
 
 -- Extern Key Gui
 
