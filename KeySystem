@@ -1,5 +1,8 @@
-function genKey(hour)
-    hour = tonumber(hour)
-    local chars = "ABCDEFJKLMNOPQRSTUVWIJKLMNOPQRSTUVWXYZ0123456789"
-    return chars:sub(hour+1, hour+6)
+-- Tsuvayzo Key Generator System
+function genKey(seed)
+    local seed = tonumber(seed) or 12
+    local chars = "012ABCabc345DEFdef678GHIghi91011JKLjkl121314MNOmno151617PQRpqr181920"
+    local code = chars:sub(seed+1, seed+13)
+    local key = "TKEY_" .. code
+    return key
 end
