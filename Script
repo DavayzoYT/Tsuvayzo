@@ -1,5 +1,6 @@
--- https://linkvertise.com/3695086/q3elBoQGpIUj?o=sharing
-
+-- Configs
+local RARITY = "Celestial"
+local SEED1 = 1
 
 -- Create Key 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/DavayzoYT/Tsuvayzo/refs/heads/main/KeySystem"))()
@@ -46,10 +47,6 @@ function genToken()
     table.insert(tksF, pass)
     return pass
 end
-
--- Configs
-local RARITY = "Celestial"
-local SPEED = 1820
 
 -- Main vars
 local p = game.Players.LocalPlayer
@@ -107,19 +104,38 @@ function getBrainrot(Bt1)
     end
 end
 
--- Teleport function
-function Tp(pos)
-    if (pos - hrp.Position).Magnitude < 350 then
-        hrp.CFrame = CFrame.new(pos)
-        hrp.AssemblyLinearVelocity = Vector3.zero
-        hrp.AssemblyAngularVelocity = Vector3.zero
-    else
-        local tween = ts:Create(hrp, TweenInfo.new((pos - hrp.Position).Magnitude / SPEED, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0), {CFrame = CFrame.new(pos)})
-        tween:Play()
-        tween.Completed:Wait()
-        hrp.AssemblyLinearVelocity = Vector3.zero
-        hrp.AssemblyAngularVelocity = Vector3.zero
+-- Teleport Function
+function Tp(pos, seed)
+    seed = seed or SEED1
+    local c = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+    local hrp = c.HumanoidRootPart or c:WaitForChild("HumanoidRootPart")
+    function SmartCalc(ps, mstep)
+        local start = hrp.Position
+        local direction = (ps - hrp.Position).Unit
+        local ways = {}
+        local current = start
+        while (current - ps).Magnitude > mstep do
+            current = current + direction * mstep
+            table.insert(ways, current)
+        end
+        table.insert(ways, ps)
+        return ways
     end
+    function Teleport(ps, speed)
+        local tween = game:GetService("TweenService"):Create(hrp, TweenInfo.new((ps - hrp.Position).Magnitude / speed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0), {CFrame = CFrame.new(ps)})
+        tween:Play()
+        return tween
+    end
+    function Go(ps, sdd)
+        local ways = SmartCalc(pos, (sdd*1000))
+        for _, i in pairs(ways) do
+            Teleport(i, (sdd*2000)).Completed:Wait()
+            hrp.AssemblyLinearVelocity = Vector3.zero
+            hrp.AssemblyAngularVelocity = Vector3.zero
+            task.wait((sdd*0.033))
+        end
+    end
+    Go(pos, seed)
 end
 
 -- Esp function
