@@ -1,8 +1,8 @@
 -- Tsuvayzo Key Generator System
 function genKey(seed)
     local seed = tonumber(seed) or 12
-    local chars = "0123456789"
-    local code = chars:sub(seed+1, math.floor((seed+13) % 10))
+    local chars = "83472029572920792937472038473892837492927473019374620103947564629100102847647291010"
+    local code = chars:sub(seed+1, seed+13)
     local key = "TKEY_" .. code
     return key
 end
